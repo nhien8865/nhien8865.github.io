@@ -470,7 +470,7 @@
         .work-thumb-num {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 64px;
-            color: var(--border);
+            color: var(--accent);
             position: relative;
         }
 
@@ -480,6 +480,11 @@
             background: rgba(59, 130, 246, .05);
             opacity: 0;
             transition: opacity .3s;
+        }
+        .work-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .work-meta {
@@ -863,7 +868,7 @@
                         d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
             </a>
-            <a href="#" target="_blank" class="nav-resume">Resume ↗</a>
+            <a href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" target="_blank" class="nav-resume">Resume ↗</a>
         </div>
     </nav>
 
@@ -936,7 +941,9 @@
             <div class="work-item large reveal">
                 <div class="work-thumb-bg">
                     <div class="work-thumb-num">01</div>
-                    <div class="work-overlay"></div>
+                    <div class="work-overlay">
+                        <img src="./assets//images/ipbase.jpg" alt="" srcset="">
+                    </div>
                 </div>
                 <div class="work-meta">
                     <div class="work-meta-left">
@@ -950,7 +957,9 @@
             <div class="work-item medium reveal reveal-delay-1">
                 <div class="work-thumb-bg">
                     <div class="work-thumb-num">02</div>
-                    <div class="work-overlay"></div>
+                    <div class="work-overlay">
+                        <img src="./assets//images/milestone.vn.jpg" alt="" srcset="">
+                    </div>
                 </div>
                 <div class="work-meta">
                     <div class="work-meta-left">
@@ -964,7 +973,9 @@
             <div class="work-item full reveal reveal-delay-2">
                 <div class="work-thumb-bg">
                     <div class="work-thumb-num">03</div>
-                    <div class="work-overlay"></div>
+                    <div class="work-overlay">
+                        <img src="./assets//images/saigonadventure.jpg" alt="" srcset="">
+                    </div>
                 </div>
                 <div class="work-meta">
                     <div class="work-meta-left">
@@ -987,13 +998,11 @@
                 <div class="contact-links reveal reveal-delay-2">
                     <a href="https://github.com/nhien8865" target="_blank" class="contact-link">GitHub</a>
                     <a href="https://www.linkedin.com/in/nhien8865/" target="_blank" class="contact-link">LinkedIn</a>
-                    <a href="#" class="contact-link">Dribbble</a>
-                    <a href="#" class="contact-link">Behance</a>
                 </div>
             </div>
             <div class="contact-actions reveal reveal-delay-1">
                 <a href="mailto:nvhieen121@gmail.com" class="btn-primary">✦ &nbsp;Send me an email</a>
-                <a href="#" class="btn-ghost">↓ &nbsp;Download resume</a>
+                <a href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" class="btn-ghost">↓ &nbsp;Download resume</a>
             </div>
         </div>
     </section>
