@@ -1,329 +1,739 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Nhieen — Designer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --ink:    #0f0f0f;   /* was #1c1c1c — darker, crisper */
-            --mid:    #3a3a3a;   /* was #555    — much more readable */
-            --light:  #6b6b6b;   /* was #999    — still subtle but visible */
-            --line:   #e2e2e2;
-            --accent: #1d4ed8;   /* was #2563eb — richer blue */
-            --bg-hi:  #f4f7ff;
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhieen — Designer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        html { scroll-behavior: smooth; }
+        :root {
+            --ink: #0a0a0a;
+            --mid: #444;
+            --muted: #888;
+            --faint: #bbb;
+            --line: #ebebeb;
+            --accent: #0a3d62;
+            --bg: #fafaf8;
+            --sidebar-w: 256px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            background: #fff;
+            background: var(--bg);
             color: var(--ink);
-            font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
 
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
         .page {
-            max-width: 1200px;
+            max-width: 1160px;
             margin: 0 auto;
             display: flex;
             align-items: flex-start;
+            min-height: 100vh;
             border-left: 1px solid var(--line);
             border-right: 1px solid var(--line);
-            min-height: 100vh;
+            background: #fff;
         }
 
         aside {
-            width: 240px;
+            width: var(--sidebar-w);
             flex-shrink: 0;
             position: sticky;
             top: 0;
             height: 100vh;
             border-right: 1px solid var(--line);
-            padding: 48px 28px;
+            padding: 40px 28px 32px;
             display: flex;
             flex-direction: column;
-            gap: 28px;
             overflow: hidden;
+            background: #fff;
+        }
+
+        .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .avatar svg {
+            opacity: .55;
+        }
+
+        .sb-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -.3px;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+
+        .sb-role {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--line);
+            margin: 24px 0;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .info-lbl {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .info-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--mid);
+        }
+
+        .info-val a {
+            color: var(--mid);
+            transition: color .15s;
+        }
+
+        .info-val a:hover {
+            color: var(--accent);
+        }
+
+        .sb-nav {
+            list-style: none;
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sb-nav a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--faint);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            transition: color .2s;
+        }
+
+        .sb-nav a::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: currentColor;
+            transition: width .2s;
+        }
+
+        .sb-nav a:hover,
+        .sb-nav a.active {
+            color: var(--ink);
+        }
+
+        .sb-nav a.active::before {
+            width: 24px;
         }
 
         main {
             flex: 1;
             min-width: 0;
-            padding: 56px 64px 100px;
+            padding: 64px 60px 100px;
         }
 
-        /* Photo */
-        .photo-wrap {
-            width: 80px; height: 80px; border-radius: 50%;
-            overflow: hidden; background: #e8e8e8;
-            flex-shrink: 0; position: relative;
-        }
-        .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .photo-placeholder {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            background: #e8e8e8;
+        .section {
+            margin-bottom: 72px;
         }
 
-        .sidebar-name { font-size: 17px; font-weight: 600; letter-spacing: -.2px; line-height: 1.2; color: var(--ink); }
-        .sidebar-role { font-size: 13px; color: var(--mid); font-style: italic; margin-top: 3px; }
-
-        .info-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-        .info-list li { display: flex; flex-direction: column; gap: 1px; }
-        .info-list .lbl { font-family: 'DM Mono', monospace; font-size: 8.5px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--light); }
-        .info-list .val { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--mid); }
-        .info-list .val a { color: var(--mid); }
-        .info-list .val a:hover { color: var(--accent); text-decoration: none; }
-
-        .sidebar-nav { list-style: none; display: flex; flex-direction: column; margin-top: auto; border-top: 1px solid var(--line); padding-top: 20px; }
-        .sidebar-nav li a {
-            font-family: 'DM Mono', monospace; font-size: 10.5px;
-            letter-spacing: 1.5px; text-transform: uppercase; color: var(--light);
-            display: block; padding: 7px 0; transition: color .15s;
-        }
-        .sidebar-nav li a:hover, .sidebar-nav li a.active { color: var(--ink); text-decoration: none; }
-
-        .section { margin-bottom: 64px; }
-        .section-title {
-            font-family: 'DM Mono', monospace; font-size: 9.5px;
-            letter-spacing: 2.5px; text-transform: uppercase; color: var(--light);
-            margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+        .sec-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
         }
 
-        .bio-lead { font-size: 18px; font-weight: 400; line-height: 1.8; color: var(--ink); margin-bottom: 14px; }
-        .bio-lead em { font-style: italic; color: var(--mid); }
-        .bio-body { font-size: 15px; color: var(--mid); line-height: 1.8; margin-bottom: 20px; }
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--faint);
+            white-space: nowrap;
+        }
 
-        .stack-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-        .stag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--light); padding: 3px 9px; border: 1px solid var(--line); transition: border-color .15s, color .15s; }
-        .stag:hover { border-color: var(--accent); color: var(--accent); }
+        .sec-line {
+            flex: 1;
+            height: 1px;
+            background: var(--line);
+        }
 
-        .project-item { padding: 24px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; }
-        .project-item:first-child { border-top: 1px solid var(--line); }
-        .proj-num { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--light); margin-bottom: 4px; }
-        .proj-name { font-size: 18px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--ink); }
-        .feat-badge { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--accent); color: #fff; padding: 2px 7px; font-weight: 400; }
-        .proj-desc { font-size: 14.5px; color: var(--mid); line-height: 1.7; margin-bottom: 10px; }
-        .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
-        .ptag { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--light); padding: 2px 7px; border: 1px solid var(--line); }
-        .proj-link { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--light); white-space: nowrap; padding-top: 2px; transition: color .15s; }
-        .proj-link:hover { color: var(--accent); text-decoration: none; }
+        .bio-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.55;
+            color: var(--ink);
+            margin-bottom: 18px;
+            max-width: 560px;
+        }
 
-        .smartdoc-card { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; }
-        .smartdoc-card-inner { background: var(--bg-hi); border: 1px solid #c7d9ff; padding: 28px; }
-        .smartdoc-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
-        .smartdoc-card-title-wrap { display: flex; flex-direction: column; gap: 6px; }
-        .smartdoc-preview-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .smartdoc-card-desc { font-size: 15px; color: var(--mid); line-height: 1.75; margin-bottom: 20px; }
-        .smartdoc-metrics-row { display: flex; gap: 1px; background: #c7d9ff; border: 1px solid #c7d9ff; margin-bottom: 20px; }
-        .sm-metric { background: #fff; flex: 1; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
-        .sm-metric-val { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--ink); font-weight: 500; }
-        .sm-metric-lbl { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(--light); }
-        .smartdoc-cta { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 8px 16px; transition: background .15s, color .15s; white-space: nowrap; }
-        .smartdoc-cta:hover { background: var(--accent); color: #fff; text-decoration: none; }
+        .bio-lead strong {
+            font-style: normal;
+            font-weight: 600;
+        }
 
-        .contact-lead { font-size: 17px; font-weight: 300; color: var(--mid); line-height: 1.8; margin-bottom: 24px; }
-        .clink-list { display: flex; flex-direction: column; gap: 10px; }
-        .clink-row { display: flex; align-items: baseline; gap: 14px; }
-        .clabel { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); width: 68px; flex-shrink: 0; }
-        .cval { font-size: 15px; color: var(--mid); }
-        .cval a { color: var(--mid); }
-        .cval a:hover { color: var(--accent); text-decoration: none; }
+        .bio-body {
+            font-size: 14.5px;
+            color: var(--mid);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            max-width: 520px;
+        }
 
-        footer { max-width: 1200px; margin: 0 auto; padding: 0 64px 40px 304px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--light); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+        .stack-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
 
-        .fade { opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s; }
-        .fade.in { opacity: 1; transform: none; }
+        .stag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: .5px;
+            color: var(--muted);
+            padding: 4px 10px;
+            border: 1px solid var(--line);
+            transition: border-color .15s, color .15s;
+            cursor: default;
+        }
 
-        @media (max-width: 680px) {
-            .page { flex-direction: column; border: none; }
-            aside { position: static; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 32px 24px 24px; overflow: visible; }
-            .sidebar-nav { margin-top: 16px; }
-            main { padding: 36px 24px 60px; max-width: 100%; }
-            footer { padding: 0 24px 36px; border: none; }
-            .smartdoc-metrics-row { flex-wrap: wrap; }
-            .smartdoc-card-header { flex-direction: column; gap: 12px; }
+        .stag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .featured-card {
+            margin-bottom: 2px;
+            border: 1px solid var(--accent);
+            background: #f5f8fd;
+            padding: 28px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .feat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 14px;
+        }
+
+        .feat-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .feat-index {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--faint);
+        }
+
+        .feat-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: #fff;
+            padding: 3px 8px;
+        }
+
+        .feat-desc {
+            font-size: 14px;
+            color: var(--mid);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .feat-metrics {
+            display: flex;
+            gap: 1px;
+            background: #c7d9f5;
+            border: 1px solid #c7d9f5;
+            margin-bottom: 16px;
+        }
+
+        .fm {
+            background: #fff;
+            flex: 1;
+            padding: 10px 12px;
+        }
+
+        .fm-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .fm-lbl {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin-top: 2px;
+        }
+
+        .feat-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 16px;
+            transition: background .15s, color .15s;
+            white-space: nowrap;
+        }
+
+        .feat-cta:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .proj-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .proj-row {
+            display: grid;
+            grid-template-columns: 32px 1fr auto;
+            gap: 20px;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .proj-row:first-child {
+            border-top: 1px solid var(--line);
+        }
+
+        .proj-idx {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--faint);
+        }
+
+        .proj-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .proj-desc {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .proj-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .ptag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            color: var(--faint);
+            padding: 2px 7px;
+            border: 1px solid var(--line);
+        }
+
+        .proj-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            white-space: nowrap;
+            transition: color .15s;
+        }
+
+        .proj-link:hover {
+            color: var(--accent);
+        }
+
+        .contact-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--mid);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 480px;
+        }
+
+        .clink-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .clink {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .clink:last-child {
+            border-bottom: none;
+        }
+
+        .clabel {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--faint);
+            width: 72px;
+            flex-shrink: 0;
+        }
+
+        .cval {
+            font-size: 14px;
+            color: var(--mid);
+        }
+
+        .cval a {
+            color: var(--mid);
+            transition: color .15s;
+        }
+
+        .cval a:hover {
+            color: var(--accent);
+        }
+
+        footer {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 60px 40px calc(var(--sidebar-w) + 60px);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            color: var(--faint);
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            background: #fff;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .fade.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                flex-direction: column;
+                border: none;
+            }
+
+            aside {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+                padding: 32px 24px 24px;
+            }
+
+            .sb-nav {
+                margin-top: 16px;
+            }
+
+            main {
+                padding: 36px 24px 60px;
+            }
+
+            footer {
+                padding: 0 24px 36px;
+                border: none;
+            }
+
+            .feat-metrics {
+                flex-wrap: wrap;
+            }
+
+            .feat-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .proj-row {
+                grid-template-columns: 28px 1fr;
+            }
+
+            .proj-link {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
-
-<div class="page">
-
-    <aside>
-        <div class="photo-wrap">
-            <img src="" alt="Nhieen" id="profile-photo" style="display:none"/>
-            <div class="photo-placeholder" id="photo-placeholder">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="15" r="8" fill="#c0c0c0"/>
-                    <path d="M4 38c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#c0c0c0" stroke-width="2.5" stroke-linecap="round"/>
+    <div class="page">
+        <aside>
+            <div class="avatar">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                    <circle cx="13" cy="10" r="5" fill="#fff" />
+                    <path d="M2 26c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#fff" stroke-width="2"
+                        stroke-linecap="round" />
                 </svg>
             </div>
-        </div>
-
-        <div>
-            <div class="sidebar-name">Nhieen</div>
-            <div class="sidebar-role">Visual &amp; UX Designer</div>
-        </div>
-
-        <ul class="info-list">
-            <li><span class="lbl">University</span><span class="val">Saigon University</span></li>
-            <li><span class="lbl">Year</span><span class="val">4th Year Student</span></li>
-            <li><span class="lbl">Location</span><span class="val">Ho Chi Minh City, VN</span></li>
-            <li><span class="lbl">Email</span><span class="val"><a href="mailto:nvhien121@gmail.com">nvhien121@gmail.com</a></span></li>
-            <li><span class="lbl">GitHub</span><span class="val"><a href="https://github.com/nhien8865" target="_blank">nhien8865</a></span></li>
-            <li><span class="lbl">LinkedIn</span><span class="val"><a href="https://www.linkedin.com/in/nhien8865/" target="_blank">in/nhien8865</a></span></li>
-            <li><span class="lbl">Resume</span><span class="val"><a href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" target="_blank">Download PDF ↓</a></span></li>
-        </ul>
-
-        <nav>
-            <ul class="sidebar-nav">
-                <li><a href="#about">About</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <main>
-
-        <section class="section fade" id="about">
-            <div class="section-title">About</div>
-            <p class="bio-lead">I'm a designer who lives in the space between <em>function and feeling</em> — building interfaces that are clear, considered, and quietly memorable.</p>
-            <p class="bio-body">Final-year Information Technology student at Saigon University, Ho Chi Minh City. I work with startups and brands to design interfaces that are clear, considered, and crafted with depth. I believe the best design is invisible — it guides, it delights, then it disappears.</p>
-            <div class="stack-row">
-                <span class="stag">Figma</span>
-                <span class="stag">WordPress</span>
-                <span class="stag">Canva</span>
-                <span class="stag">Next.js</span>
-                <span class="stag">React</span>
-                <span class="stag">HTML / CSS</span>
-                <span class="stag">Python</span>
-                <span class="stag">FAISS</span>
-                <span class="stag">Ollama</span>
+            <div class="sb-name">Nhieen</div>
+            <div class="sb-role">Visual &amp; UX Designer</div>
+            <div class="divider"></div>
+            <div class="info-block">
+                <div class="info-item"><span class="info-lbl">University</span><span class="info-val">Saigon
+                        University</span></div>
+                <div class="info-item"><span class="info-lbl">Year</span><span class="info-val">4th Year Student</span>
+                </div>
+                <div class="info-item"><span class="info-lbl">Location</span><span class="info-val">Ho Chi Minh City,
+                        VN</span></div>
+                <div class="info-item"><span class="info-lbl">Email</span><span class="info-val"><a
+                            href="mailto:nvhien121@gmail.com">nvhien121@gmail.com</a></span></div>
+                <div class="info-item"><span class="info-lbl">GitHub</span><span class="info-val"><a
+                            href="https://github.com/nhien8865" target="_blank">nhien8865</a></span></div>
+                <div class="info-item"><span class="info-lbl">LinkedIn</span><span class="info-val"><a
+                            href="https://www.linkedin.com/in/nhien8865/" target="_blank">in/nhien8865</a></span></div>
+                <div class="info-item"><span class="info-lbl">Resume</span><span class="info-val"><a
+                            href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" target="_blank">Download PDF
+                            ↓</a></span></div>
             </div>
-        </section>
-
-        <section class="section fade" id="work">
-            <div class="section-title">Selected Work</div>
-
-            <div class="smartdoc-card">
-                <div class="smartdoc-card-inner">
-                    <div class="smartdoc-card-header">
-                        <div class="smartdoc-card-title-wrap">
-                            <div class="proj-num">01</div>
-                            <div class="proj-name">SmartDoc AI <span class="feat-badge">Featured</span></div>
+            <nav>
+                <ul class="sb-nav">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            <section class="section fade" id="about">
+                <div class="sec-header"><span class="sec-label">About</span><span class="sec-line"></span></div>
+                <p class="bio-lead">I live in the space between <strong>function and feeling</strong> — building
+                    interfaces that are clear, considered, and quietly memorable.</p>
+                <p class="bio-body">Final-year Information Technology student at Saigon University, Ho Chi Minh City. I
+                    work with startups and brands to design interfaces crafted with depth. I believe the best design is
+                    invisible — it guides, it delights, then it disappears.</p>
+                <div class="stack-wrap">
+                    <span class="stag">Figma</span><span class="stag">WordPress</span><span class="stag">Canva</span>
+                    <span class="stag">Next.js</span><span class="stag">React</span><span class="stag">HTML / CSS</span>
+                    <span class="stag">Python</span><span class="stag">FAISS</span><span class="stag">Ollama</span>
+                </div>
+            </section>
+            <section class="section fade" id="work">
+                <div class="sec-header"><span class="sec-label">Selected Work</span><span class="sec-line"></span></div>
+                <div class="featured-card">
+                    <div class="feat-row">
+                        <div class="feat-left">
+                            <span class="feat-index">01</span>
+                            <div class="feat-name">SmartDoc AI <span class="badge">Featured</span></div>
                         </div>
-                        <a href="smartdoc.html" class="smartdoc-cta">View case study →</a>
+                        <a href="smartdoc.html" class="feat-cta">View case study →</a>
                     </div>
-                    <p class="smartdoc-card-desc">A fully local Retrieval-Augmented Generation (RAG) system for intelligent PDF Q&amp;A. Upload a document, ask anything — get precise, grounded answers in 50+ languages with zero API cost and complete data privacy.</p>
-                    <div class="smartdoc-metrics-row">
-                        <div class="sm-metric"><span class="sm-metric-val">100%</span><span class="sm-metric-lbl">Local &amp; private</span></div>
-                        <div class="sm-metric"><span class="sm-metric-val">$0</span><span class="sm-metric-lbl">API cost</span></div>
-                        <div class="sm-metric"><span class="sm-metric-val">50+</span><span class="sm-metric-lbl">Languages</span></div>
-                        <div class="sm-metric"><span class="sm-metric-val">85–90%</span><span class="sm-metric-lbl">Retrieval acc.</span></div>
+                    <p class="feat-desc">A fully local Retrieval-Augmented Generation (RAG) system for intelligent PDF
+                        Q&amp;A. Upload a document, ask anything — get precise, grounded answers in 50+ languages with
+                        zero API cost and complete data privacy.</p>
+                    <div class="feat-metrics">
+                        <div class="fm">
+                            <div class="fm-val">100%</div>
+                            <div class="fm-lbl">Local &amp; private</div>
+                        </div>
+                        <div class="fm">
+                            <div class="fm-val">$0</div>
+                            <div class="fm-lbl">API cost</div>
+                        </div>
+                        <div class="fm">
+                            <div class="fm-val">50+</div>
+                            <div class="fm-lbl">Languages</div>
+                        </div>
+                        <div class="fm">
+                            <div class="fm-val">85–90%</div>
+                            <div class="fm-lbl">Retrieval acc.</div>
+                        </div>
                     </div>
-                    <div class="smartdoc-preview-tags">
-                        <span class="ptag">Python</span>
-                        <span class="ptag">LangChain</span>
-                        <span class="ptag">Qwen2.5:7b</span>
-                        <span class="ptag">Ollama</span>
-                        <span class="ptag">FAISS</span>
-                        <span class="ptag">Streamlit</span>
+                    <div class="proj-tags">
+                        <span class="ptag">Python</span><span class="ptag">LangChain</span><span
+                            class="ptag">Qwen2.5:7b</span>
+                        <span class="ptag">Ollama</span><span class="ptag">FAISS</span><span
+                            class="ptag">Streamlit</span>
                     </div>
                 </div>
-            </div>
-
-            <div class="project-item">
-                <div>
-                    <div class="proj-num">02</div>
-                    <div class="proj-name">IPBase</div>
-                    <p class="proj-desc">Web design and UI/UX for a Vietnamese tech platform.</p>
-                    <div class="proj-tags"><span class="ptag">Web Design</span><span class="ptag">UI/UX</span></div>
+                <div class="proj-list">
+                    <div class="proj-row">
+                        <span class="proj-idx">02</span>
+                        <div>
+                            <div class="proj-name">IPBase</div>
+                            <div class="proj-desc">Web design and UI/UX for a Vietnamese tech platform.</div>
+                            <div class="proj-tags"><span class="ptag">Web Design</span><span class="ptag">UI/UX</span>
+                            </div>
+                        </div>
+                        <a href="https://ipbase.vn" target="_blank" class="proj-link">ipbase.vn →</a>
+                    </div>
+                    <div class="proj-row">
+                        <span class="proj-idx">03</span>
+                        <div>
+                            <div class="proj-name">Milestone</div>
+                            <div class="proj-desc">Web design and branding for an event management agency.</div>
+                            <div class="proj-tags"><span class="ptag">Web Design</span><span
+                                    class="ptag">Branding</span></div>
+                        </div>
+                        <a href="https://milestone.vn" target="_blank" class="proj-link">milestone.vn →</a>
+                    </div>
+                    <div class="proj-row">
+                        <span class="proj-idx">04</span>
+                        <div>
+                            <div class="proj-name">Saigon Adventure</div>
+                            <div class="proj-desc">UI design for a tours &amp; travel company in Ho Chi Minh City.</div>
+                            <div class="proj-tags"><span class="ptag">Web Design</span><span class="ptag">UI</span>
+                            </div>
+                        </div>
+                        <a href="https://saigonadventure.com" target="_blank" class="proj-link">saigonadventure.com
+                            →</a>
+                    </div>
                 </div>
-                <a href="https://ipbase.vn" target="_blank" class="proj-link">ipbase.vn →</a>
-            </div>
-
-            <div class="project-item">
-                <div>
-                    <div class="proj-num">03</div>
-                    <div class="proj-name">Milestone</div>
-                    <p class="proj-desc">Web design and branding for an event management agency.</p>
-                    <div class="proj-tags"><span class="ptag">Web Design</span><span class="ptag">Branding</span></div>
+            </section>
+            <section class="section fade" id="contact">
+                <div class="sec-header"><span class="sec-label">Contact</span><span class="sec-line"></span></div>
+                <p class="contact-lead">Available for freelance work and full-time opportunities. Feel free to reach
+                    out.</p>
+                <div class="clink-list">
+                    <div class="clink"><span class="clabel">Email</span><span class="cval"><a
+                                href="mailto:nvhien121@gmail.com">nvhien121@gmail.com</a></span></div>
+                    <div class="clink"><span class="clabel">GitHub</span><span class="cval"><a
+                                href="https://github.com/nhien8865" target="_blank">github.com/nhien8865</a></span>
+                    </div>
+                    <div class="clink"><span class="clabel">LinkedIn</span><span class="cval"><a
+                                href="https://www.linkedin.com/in/nhien8865/"
+                                target="_blank">linkedin.com/in/nhien8865</a></span></div>
+                    <div class="clink"><span class="clabel">Resume</span><span class="cval"><a
+                                href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" target="_blank">Download PDF
+                                ↓</a></span></div>
                 </div>
-                <a href="https://milestone.vn" target="_blank" class="proj-link">milestone.vn →</a>
-            </div>
-
-            <div class="project-item">
-                <div>
-                    <div class="proj-num">04</div>
-                    <div class="proj-name">Saigon Adventure</div>
-                    <p class="proj-desc">UI design for a tours &amp; travel company in Ho Chi Minh City.</p>
-                    <div class="proj-tags"><span class="ptag">Web Design</span><span class="ptag">UI</span></div>
-                </div>
-                <a href="https://saigonadventure.com" target="_blank" class="proj-link">saigonadventure.com →</a>
-            </div>
-
-        </section>
-
-        <section class="section fade" id="contact">
-            <div class="section-title">Contact</div>
-            <p class="contact-lead">Available for freelance work and full-time opportunities. Feel free to reach out.</p>
-            <div class="clink-list">
-                <div class="clink-row"><span class="clabel">Email</span><span class="cval"><a href="mailto:nvhien121@gmail.com">nvhien121@gmail.com</a></span></div>
-                <div class="clink-row"><span class="clabel">GitHub</span><span class="cval"><a href="https://github.com/nhien8865" target="_blank">github.com/nhien8865</a></span></div>
-                <div class="clink-row"><span class="clabel">LinkedIn</span><span class="cval"><a href="https://www.linkedin.com/in/nhien8865/" target="_blank">linkedin.com/in/nhien8865</a></span></div>
-                <div class="clink-row"><span class="clabel">Resume</span><span class="cval"><a href="https://nhien8865.github.io/resume/Nhieen_CV.pdf" target="_blank">Download PDF ↓</a></span></div>
-            </div>
-        </section>
-
-    </main>
-</div>
-
-<footer>2025 Nhieen</footer>
-
-<script>
-(function() {
-    var img = document.getElementById('profile-photo');
-    var ph  = document.getElementById('photo-placeholder');
-    function showPhoto() {
-        if (img.naturalWidth > 0) { img.style.display = 'block'; ph.style.display = 'none'; }
-    }
-    img.addEventListener('load', showPhoto);
-    img.addEventListener('error', function() { img.style.display = 'none'; ph.style.display = 'flex'; });
-    if (img.src && img.complete) showPhoto();
-
-    var fades = document.querySelectorAll('.fade');
-    var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-            if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-        });
-    }, { threshold: 0.06 });
-    fades.forEach(function(el) { obs.observe(el); });
-
-    var sections = document.querySelectorAll('section[id]');
-    var navLinks = document.querySelectorAll('.sidebar-nav a');
-    window.addEventListener('scroll', function() {
-        var y = window.scrollY + 140;
-        sections.forEach(function(sec) {
-            if (y >= sec.offsetTop && y < sec.offsetTop + sec.offsetHeight) {
-                navLinks.forEach(function(link) {
-                    link.classList.toggle('active', link.getAttribute('href') === '#' + sec.id);
+            </section>
+        </main>
+    </div>
+    <footer>© 2025 Nhieen</footer>
+    <script>
+        (function () {
+            var fades = document.querySelectorAll('.fade');
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+            }, { threshold: 0.05 });
+            fades.forEach(function (el) { obs.observe(el); });
+            var sections = document.querySelectorAll('section[id]');
+            var navLinks = document.querySelectorAll('.sb-nav a');
+            window.addEventListener('scroll', function () {
+                var y = window.scrollY + 140;
+                sections.forEach(function (sec) {
+                    if (y >= sec.offsetTop && y < sec.offsetTop + sec.offsetHeight) {
+                        navLinks.forEach(function (link) { link.classList.toggle('active', link.getAttribute('href') === '#' + sec.id); });
+                    }
                 });
-            }
-        });
-    }, { passive: true });
-}());
-</script>
-
+            }, { passive: true });
+        }());
+    </script>
 </body>
+
 </html>

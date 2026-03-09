@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>SmartDoc AI — Nhieen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --ink:         #0f0f0f;
-            --mid:         #3a3a3a;
-            --light:       #6b6b6b;
-            --line:        #e2e2e2;
-            --accent:      #1d4ed8;
-            --accent-soft: #eef2ff;
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartDoc AI — Nhieen</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        html { scroll-behavior: smooth; }
+        :root {
+            --ink: #0a0a0a;
+            --mid: #444;
+            --muted: #888;
+            --faint: #bbb;
+            --line: #ebebeb;
+            --accent: #0a3d62;
+            --accent-soft: #f0f5fb;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: #fff;
             color: var(--ink);
-            font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
 
-        /* ── SHELL: centred 1200px, same as index.html ── */
-        .shell {
-            max-width: 1200px;
-            margin: 0 auto;
-            border-left: 1px solid var(--line);
-            border-right: 1px solid var(--line);
-            min-height: 100vh;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        /* ── TOP NAV: also capped at 1200px ── */
+        /* NAV */
         .topnav-wrap {
             position: sticky;
             top: 0;
             z-index: 99;
         }
+
         .topnav {
-            max-width: 1200px;
+            max-width: 1160px;
             margin: 0 auto;
-            background: rgba(255,255,255,.96);
+            background: rgba(255, 255, 255, .96);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--line);
             border-left: 1px solid var(--line);
@@ -58,46 +66,124 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .topnav-back {
-            font-family: 'DM Mono', monospace;
-            font-size: 10.5px; letter-spacing: 1px;
-            text-transform: uppercase; color: var(--light);
-            display: flex; align-items: center; gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--faint);
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: color .15s;
         }
-        .topnav-back:hover { color: var(--ink); text-decoration: none; }
-        .topnav-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--light); letter-spacing: 1px; }
-        .topnav-author { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--light); letter-spacing: 1px; }
 
-        /* ── HERO ── */
+        .topnav-back::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .topnav-back:hover {
+            color: var(--ink);
+        }
+
+        .topnav-center {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--faint);
+            letter-spacing: 1px;
+        }
+
+        .topnav-right {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--faint);
+            letter-spacing: 1px;
+        }
+
+        /* SHELL */
+        .shell {
+            max-width: 1160px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            min-height: 100vh;
+        }
+
+        /* HERO */
         .hero {
             padding: 72px 48px 56px;
             border-bottom: 1px solid var(--line);
         }
-        .hero-eyebrow {
-            font-family: 'DM Mono', monospace;
-            font-size: 9px; letter-spacing: 3px;
-            text-transform: uppercase; color: var(--accent);
-            margin-bottom: 20px;
-        }
-        .hero-title {
-            font-size: clamp(36px, 5vw, 56px);
-            font-weight: 600; line-height: 1.1; letter-spacing: -.5px;
-            margin-bottom: 20px;
-        }
-        .hero-sub {
-            font-size: 19px; font-weight: 300; color: var(--mid);
-            line-height: 1.7; max-width: 580px; margin-bottom: 36px;
-        }
-        .hero-meta {
-            display: flex; gap: 32px; flex-wrap: wrap;
-            padding-top: 24px; border-top: 1px solid var(--line);
-        }
-        .hero-meta-item { display: flex; flex-direction: column; gap: 3px; }
-        .hero-meta-label { font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); }
-        .hero-meta-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--mid); }
 
-        /* ── BODY: article + sticky TOC side by side ── */
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -.5px;
+            margin-bottom: 18px;
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--mid);
+            line-height: 1.7;
+            max-width: 560px;
+            margin-bottom: 36px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 0;
+            flex-wrap: wrap;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding: 0 28px 0 0;
+            margin-right: 28px;
+            border-right: 1px solid var(--line);
+        }
+
+        .hero-meta-item:last-child {
+            border-right: none;
+        }
+
+        .hero-meta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .hero-meta-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            color: var(--mid);
+        }
+
+        /* BODY */
         .body-wrap {
             display: flex;
             align-items: flex-start;
@@ -106,310 +192,710 @@
         article {
             flex: 1;
             min-width: 0;
-            padding: 56px 60px 100px 48px;
+            padding: 56px 56px 100px 48px;
         }
 
-        /* ── TOC: sticky inside .shell, not fixed to viewport ── */
+        /* TOC */
         .toc {
-            width: 200px;
+            width: 196px;
             flex-shrink: 0;
             position: sticky;
             top: 52px;
             height: calc(100vh - 52px);
             overflow: hidden;
             border-left: 1px solid var(--line);
-            padding: 40px 24px;
+            padding: 40px 20px;
         }
-        .toc-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 16px; }
-        .toc-list { list-style: none; display: flex; flex-direction: column; }
-        .toc-list li a {
-            font-family: 'DM Mono', monospace;
-            font-size: 10.5px; color: var(--light);
-            display: block; padding: 6px 0 6px 10px;
-            border-left: 2px solid transparent; margin-left: -1px;
-            transition: color .15s, border-color .15s; line-height: 1.4;
-        }
-        .toc-list li a:hover, .toc-list li a.toc-active { color: var(--ink); border-color: var(--accent); text-decoration: none; }
 
-        /* ── ARTICLE CONTENT ── */
-        .art-section { margin-bottom: 60px; }
-        .art-h2 {
-            font-family: 'DM Mono', monospace;
-            font-size: 9.5px; letter-spacing: 2.5px;
-            text-transform: uppercase; color: var(--light);
-            margin-bottom: 20px; padding-bottom: 12px;
-            border-bottom: 1px solid var(--line);
+        .toc-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin-bottom: 16px;
         }
-        .art-lead { font-size: 17px; font-weight: 300; line-height: 1.8; color: var(--mid); margin-bottom: 16px; }
-        .art-p { font-size: 15px; color: var(--mid); line-height: 1.8; margin-bottom: 14px; }
-        .art-p:last-child { margin-bottom: 0; }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toc-list li a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--faint);
+            display: block;
+            padding: 5px 0 5px 12px;
+            border-left: 2px solid transparent;
+            margin-left: -1px;
+            transition: color .15s, border-color .15s;
+            line-height: 1.4;
+        }
+
+        .toc-list li a:hover,
+        .toc-list li a.toc-active {
+            color: var(--ink);
+            border-color: var(--accent);
+        }
+
+        /* ARTICLE */
+        .art-section {
+            margin-bottom: 60px;
+        }
+
+        .sec-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--faint);
+            white-space: nowrap;
+        }
+
+        .sec-line {
+            flex: 1;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .art-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.75;
+            color: var(--mid);
+            margin-bottom: 16px;
+        }
+
+        .art-p {
+            font-size: 14.5px;
+            color: var(--mid);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .art-p:last-child {
+            margin-bottom: 0;
+        }
 
         /* Pipeline */
-        .pipeline { display: flex; flex-direction: column; margin-bottom: 8px; }
-        .p-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--line); position: relative; }
-        .p-step:last-child { border-bottom: none; }
-        .p-step-left { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
-        .p-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); border: 1px solid #bbd0ff; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); flex-shrink: 0; }
-        .p-line { width: 1px; flex: 1; background: var(--line); margin-top: 6px; min-height: 20px; }
-        .p-step:last-child .p-line { display: none; }
-        .p-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
-        .p-body { font-size: 14px; color: var(--mid); line-height: 1.75; }
+        .pipeline {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+        }
 
-        /* Highlight grid */
-        .hi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 8px; }
-        .hi-cell { background: #fff; padding: 20px 18px; }
-        .hi-head { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink); margin-bottom: 7px; }
-        .hi-body { font-size: 14px; color: var(--mid); line-height: 1.65; }
+        .p-step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .p-step:last-child {
+            border-bottom: none;
+        }
+
+        .p-step-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .p-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            border: 1px solid #bbd0e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .p-line {
+            width: 1px;
+            flex: 1;
+            background: var(--line);
+            margin-top: 6px;
+            min-height: 20px;
+        }
+
+        .p-step:last-child .p-line {
+            display: none;
+        }
+
+        .p-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .p-body {
+            font-size: 13.5px;
+            color: var(--mid);
+            line-height: 1.75;
+        }
+
+        /* Highlights */
+        .hi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin-bottom: 8px;
+        }
+
+        .hi-cell {
+            background: #fff;
+            padding: 20px 18px;
+        }
+
+        .hi-head {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 7px;
+        }
+
+        .hi-body {
+            font-size: 13.5px;
+            color: var(--mid);
+            line-height: 1.65;
+        }
 
         /* Metrics */
-        .metrics { display: flex; flex-wrap: wrap; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 8px; }
-        .metric { background: #fff; padding: 16px 18px; flex: 1; min-width: 110px; display: flex; flex-direction: column; gap: 4px; }
-        .metric-val { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); }
-        .metric-lbl { font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--light); }
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin-bottom: 8px;
+        }
+
+        .metric {
+            background: #fff;
+            padding: 16px 18px;
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        .metric-lbl {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
 
         /* Stack tags */
-        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
-        .tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--mid); padding: 4px 10px; border: 1px solid var(--line); transition: border-color .15s, color .15s; }
-        .tag:hover { border-color: var(--accent); color: var(--accent); }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
 
-        /* Comparison table */
-        .cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-        .cmp-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
-        .cmp-table td { padding: 11px 14px; border-bottom: 1px solid var(--line); color: var(--mid); vertical-align: top; }
-        .cmp-table tr:last-child td { border-bottom: none; }
-        .cmp-table td:first-child { font-weight: 600; color: var(--ink); }
-        .cmp-table .hi { color: var(--accent); }
-        .cmp-table .lo { color: #aaa; }
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            color: var(--muted);
+            padding: 4px 10px;
+            border: 1px solid var(--line);
+            transition: border-color .15s, color .15s;
+        }
+
+        .tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Comparison */
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .cmp-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--faint);
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            font-weight: 400;
+        }
+
+        .cmp-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--line);
+            color: var(--mid);
+            vertical-align: top;
+            font-size: 13.5px;
+        }
+
+        .cmp-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cmp-table td:first-child {
+            font-weight: 600;
+            color: var(--ink);
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+        }
+
+        .cmp-table .hi {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .cmp-table .lo {
+            color: #bbb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
 
         /* Code block */
-        .code-block { background: #f6f8fa; border: 1px solid var(--line); padding: 16px 18px; font-family: 'DM Mono', monospace; font-size: 11.5px; color: #334; line-height: 1.7; overflow-x: auto; margin-bottom: 8px; }
+        .code-block {
+            background: #f4f6f9;
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            padding: 16px 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            color: #334;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin-bottom: 8px;
+        }
 
-        /* CTA */
-        .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-        .cta-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; background: var(--accent); color: #fff; padding: 10px 20px; transition: opacity .15s; }
-        .cta-primary:hover { opacity: .85; text-decoration: none; }
-        .cta-ghost { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); border: 1px solid var(--line); padding: 10px 20px; transition: border-color .15s, color .15s; }
-        .cta-ghost:hover { border-color: var(--ink); color: var(--ink); text-decoration: none; }
+        /* CTAs */
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
 
-        /* Fade */
-        .fade { opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s; }
-        .fade.in { opacity: 1; transform: none; }
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            transition: opacity .15s;
+        }
 
-        /* Mobile */
+        .cta-primary:hover {
+            opacity: .82;
+        }
+
+        .cta-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--mid);
+            border: 1px solid var(--line);
+            padding: 10px 20px;
+            transition: border-color .15s, color .15s;
+        }
+
+        .cta-ghost:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .fade.in {
+            opacity: 1;
+            transform: none;
+        }
+
         @media (max-width: 900px) {
-            .topnav { padding: 0 24px; }
-            .hero { padding: 48px 24px 40px; }
-            .toc { display: none; }
-            article { padding: 40px 24px 80px; }
-            .hi-grid { grid-template-columns: 1fr; }
+            .topnav {
+                padding: 0 24px;
+            }
+
+            .hero {
+                padding: 48px 24px 40px;
+            }
+
+            .toc {
+                display: none;
+            }
+
+            article {
+                padding: 40px 24px 80px;
+            }
+
+            .hi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-meta-item {
+                padding: 0 16px 0 0;
+                margin-right: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<!-- TOP NAV: sticky wrapper keeps it pinned, inner .topnav caps at 1200px -->
-<div class="topnav-wrap">
-    <nav class="topnav">
-        <a href="index.html" class="topnav-back">← Back to portfolio</a>
-        <span class="topnav-title">SmartDoc AI</span>
-        <span class="topnav-author">Nhieen</span>
-    </nav>
-</div>
+    <div class="topnav-wrap">
+        <nav class="topnav">
+            <a href="index.html" class="topnav-back">Back to portfolio</a>
+            <span class="topnav-center">SmartDoc AI</span>
+            <span class="topnav-right">Nhieen</span>
+        </nav>
+    </div>
 
-<div class="shell">
+    <div class="shell">
+        <div class="hero fade">
+            <div class="hero-eyebrow">Case Study — 01 / Featured Project</div>
+            <h1 class="hero-title">SmartDoc AI</h1>
+            <p class="hero-sub">A fully local RAG system that lets you have an intelligent conversation with any PDF
+                document — privately, instantly, at zero cost.</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item"><span class="hero-meta-label">Type</span><span class="hero-meta-val">AI /
+                        RAG System</span></div>
+                <div class="hero-meta-item"><span class="hero-meta-label">Course</span><span class="hero-meta-val">Open
+                        Source Software Dev.</span></div>
+                <div class="hero-meta-item"><span class="hero-meta-label">Semester</span><span
+                        class="hero-meta-val">Spring 2026</span></div>
+                <div class="hero-meta-item"><span class="hero-meta-label">University</span><span
+                        class="hero-meta-val">Saigon University</span></div>
+                <div class="hero-meta-item"><span class="hero-meta-label">Version</span><span
+                        class="hero-meta-val">v1.1</span></div>
+            </div>
+        </div>
 
-    <!-- HERO -->
-    <div class="hero fade">
-        <div class="hero-eyebrow">Case Study — 01 / Featured Project</div>
-        <h1 class="hero-title">SmartDoc AI</h1>
-        <p class="hero-sub">A fully local RAG system that lets you have an intelligent conversation with any PDF document — privately, instantly, and at zero cost.</p>
-        <div class="hero-meta">
-            <div class="hero-meta-item"><span class="hero-meta-label">Type</span><span class="hero-meta-val">AI / RAG System</span></div>
-            <div class="hero-meta-item"><span class="hero-meta-label">Course</span><span class="hero-meta-val">Open Source Software Dev.</span></div>
-            <div class="hero-meta-item"><span class="hero-meta-label">Semester</span><span class="hero-meta-val">Spring 2026</span></div>
-            <div class="hero-meta-item"><span class="hero-meta-label">University</span><span class="hero-meta-val">Saigon University</span></div>
-            <div class="hero-meta-item"><span class="hero-meta-label">Version</span><span class="hero-meta-val">v1.1</span></div>
+        <div class="body-wrap">
+            <article>
+
+                <div class="art-section fade" id="overview">
+                    <div class="sec-header"><span class="sec-label">Overview</span><span class="sec-line"></span></div>
+                    <p class="art-lead">The volume of information locked inside PDF documents is enormous — research
+                        papers, legal contracts, technical manuals, lecture notes. Finding a specific answer in a
+                        100-page document is slow and frustrating.</p>
+                    <p class="art-p">Upload any PDF and ask questions about it in plain language. The system reads,
+                        understands, and retrieves exactly the relevant passages — then uses a local large language
+                        model to synthesise a precise, grounded answer. No cloud. No subscription. No data leaving your
+                        machine.</p>
+                    <p class="art-p">Built as the final project for the Open Source Software Development course at
+                        Saigon University (Spring 2026), with a focus on production-quality AI pipelines from entirely
+                        open-source components.</p>
+                </div>
+
+                <div class="art-section fade" id="problem">
+                    <div class="sec-header"><span class="sec-label">The Problem</span><span class="sec-line"></span>
+                    </div>
+                    <p class="art-p">Traditional keyword search fails to understand the intent behind a question.
+                        Cloud-based AI tools like ChatGPT require uploading sensitive documents to external servers — a
+                        privacy risk for legal, medical, or confidential content. And they cost money at scale.</p>
+                    <p class="art-p">The goal was to build a system that is accurate, private by default, free to run,
+                        and capable of understanding both English and Vietnamese — the two primary languages used in
+                        Vietnamese academic and professional settings.</p>
+                </div>
+
+                <div class="art-section fade" id="pipeline">
+                    <div class="sec-header"><span class="sec-label">How It Works — 5-Step Pipeline</span><span
+                            class="sec-line"></span></div>
+                    <p class="art-p" style="margin-bottom:24px">SmartDoc AI is built around a classic RAG
+                        (Retrieval-Augmented Generation) architecture, with each component carefully chosen for
+                        multilingual quality and local performance.</p>
+                    <div class="pipeline">
+                        <div class="p-step">
+                            <div class="p-step-left">
+                                <div class="p-num">1</div>
+                                <div class="p-line"></div>
+                            </div>
+                            <div>
+                                <div class="p-title">Upload &amp; Extract</div>
+                                <p class="p-body">The user uploads a PDF via the Streamlit interface.
+                                    <strong>PDFPlumber</strong> parses the file, accurately extracting text while
+                                    preserving layout — including tables and multi-column formats that simpler parsers
+                                    often mangle.</p>
+                            </div>
+                        </div>
+                        <div class="p-step">
+                            <div class="p-step-left">
+                                <div class="p-num">2</div>
+                                <div class="p-line"></div>
+                            </div>
+                            <div>
+                                <div class="p-title">Chunk &amp; Embed</div>
+                                <p class="p-body">Text is split into overlapping chunks of 1,000 characters with
+                                    100-character overlap using <strong>RecursiveCharacterTextSplitter</strong>. Each
+                                    chunk is converted into a 768-dimensional vector by
+                                    <strong>paraphrase-multilingual-mpnet-base-v2</strong>, a sentence-transformer model
+                                    that natively supports 50+ languages including Vietnamese.</p>
+                            </div>
+                        </div>
+                        <div class="p-step">
+                            <div class="p-step-left">
+                                <div class="p-num">3</div>
+                                <div class="p-line"></div>
+                            </div>
+                            <div>
+                                <div class="p-title">Index with FAISS</div>
+                                <p class="p-body">All vectors are indexed locally using <strong>FAISS</strong> (Facebook
+                                    AI Similarity Search). FAISS enables millisecond-speed similarity search across
+                                    millions of vectors without any external database or network dependency. The entire
+                                    index lives in memory — fast, private, ephemeral.</p>
+                            </div>
+                        </div>
+                        <div class="p-step">
+                            <div class="p-step-left">
+                                <div class="p-num">4</div>
+                                <div class="p-line"></div>
+                            </div>
+                            <div>
+                                <div class="p-title">Semantic Retrieval</div>
+                                <p class="p-body">When the user submits a question, it is embedded using the same MPNet
+                                    model. FAISS then finds the top-3 chunks with the highest cosine similarity to the
+                                    question vector. This is meaning-level matching — not keyword matching — so the
+                                    system understands paraphrases and indirect questions correctly.</p>
+                            </div>
+                        </div>
+                        <div class="p-step">
+                            <div class="p-step-left">
+                                <div class="p-num">5</div>
+                                <div class="p-line"></div>
+                            </div>
+                            <div>
+                                <div class="p-title">Generate &amp; Respond</div>
+                                <p class="p-body">Retrieved chunks and the question are assembled into a structured
+                                    prompt. A language detection step selects the appropriate prompt template for
+                                    Vietnamese or English. The prompt is passed to <strong>Qwen2.5:7b</strong> — running
+                                    entirely locally via <strong>Ollama</strong> — which generates a concise, grounded
+                                    answer. If the document doesn't contain the answer, the model says so rather than
+                                    hallucinate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="art-section fade" id="architecture">
+                    <div class="sec-header"><span class="sec-label">System Architecture</span><span
+                            class="sec-line"></span></div>
+                    <p class="art-p" style="margin-bottom:16px">Four layers, each with a single responsibility:</p>
+                    <div class="code-block">Presentation → Streamlit (file upload, Q&A interface)
+                        Application → LangChain (pipeline orchestration, prompt engineering)
+                        Data → FAISS vector store + MPNet embeddings (768-dim)
+                        Model → Qwen2.5:7b via Ollama (local LLM inference)</div>
+                    <p class="art-p">The separation of concerns means any layer can be swapped independently — replacing
+                        Qwen2.5 with Llama 3 or Mistral requires changing a single line of configuration.</p>
+                </div>
+
+                <div class="art-section fade" id="highlights">
+                    <div class="sec-header"><span class="sec-label">Key Highlights</span><span class="sec-line"></span>
+                    </div>
+                    <div class="hi-grid">
+                        <div class="hi-cell">
+                            <div class="hi-head">100% Local &amp; Private</div>
+                            <div class="hi-body">Every component — embedding, vector search, LLM inference — runs on the
+                                user's own machine. Documents never leave the system. Ideal for sensitive content.</div>
+                        </div>
+                        <div class="hi-cell">
+                            <div class="hi-head">Zero API Cost</div>
+                            <div class="hi-body">No OpenAI key, no monthly bill, no per-query charge. The entire stack
+                                is open-source: Qwen2.5:7b, sentence-transformers, FAISS, LangChain, Streamlit.</div>
+                        </div>
+                        <div class="hi-cell">
+                            <div class="hi-head">50+ Languages</div>
+                            <div class="hi-body">The MPNet embedding model handles Vietnamese, English, Chinese, French,
+                                German, and 50+ other languages. The system auto-detects the question language and
+                                responds accordingly.</div>
+                        </div>
+                        <div class="hi-cell">
+                            <div class="hi-head">Honest by Design</div>
+                            <div class="hi-body">Tested against out-of-context questions. The system is prompted to say
+                                "I don't know" rather than fabricate — a critical quality for real-world trust.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="art-section fade" id="performance">
+                    <div class="sec-header"><span class="sec-label">Performance</span><span class="sec-line"></span>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric"><span class="metric-val">2–5s</span><span class="metric-lbl">PDF load</span>
+                        </div>
+                        <div class="metric"><span class="metric-val">5–10s</span><span
+                                class="metric-lbl">Embedding</span></div>
+                        <div class="metric"><span class="metric-val">1–3s</span><span class="metric-lbl">Query
+                                processing</span></div>
+                        <div class="metric"><span class="metric-val">3–8s</span><span class="metric-lbl">Answer
+                                gen.</span></div>
+                        <div class="metric"><span class="metric-val">85–90%</span><span class="metric-lbl">Retrieval
+                                acc.</span></div>
+                        <div class="metric"><span class="metric-val">80–85%</span><span class="metric-lbl">Answer
+                                relevance</span></div>
+                    </div>
+                    <p class="art-p" style="margin-top:16px">Benchmarked across three test case types: simple factual
+                        questions, complex multi-step reasoning, and out-of-context queries. All three passed.</p>
+                </div>
+
+                <div class="art-section fade" id="comparison">
+                    <div class="sec-header"><span class="sec-label">Comparison</span><span class="sec-line"></span>
+                    </div>
+                    <table class="cmp-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>SmartDoc AI</th>
+                                <th>ChatGPT</th>
+                                <th>Generic Local LLM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Privacy</td>
+                                <td class="hi">100% local</td>
+                                <td class="lo">Cloud-based</td>
+                                <td class="hi">Local</td>
+                            </tr>
+                            <tr>
+                                <td>Cost</td>
+                                <td class="hi">Free</td>
+                                <td class="lo">Paid / limited</td>
+                                <td class="hi">Free</td>
+                            </tr>
+                            <tr>
+                                <td>Document Q&amp;A</td>
+                                <td class="hi">✓ RAG-powered</td>
+                                <td class="hi">✓ Upload feature</td>
+                                <td class="lo">✗ No retrieval</td>
+                            </tr>
+                            <tr>
+                                <td>Vietnamese support</td>
+                                <td class="hi">Excellent</td>
+                                <td class="hi">Good</td>
+                                <td class="lo">Variable</td>
+                            </tr>
+                            <tr>
+                                <td>Offline use</td>
+                                <td class="hi">✓ After setup</td>
+                                <td class="lo">✗ Requires internet</td>
+                                <td class="hi">✓</td>
+                            </tr>
+                            <tr>
+                                <td>Customisable</td>
+                                <td class="hi">Fully</td>
+                                <td class="lo">No</td>
+                                <td>Partially</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="art-section fade" id="stack">
+                    <div class="sec-header"><span class="sec-label">Tech Stack</span><span class="sec-line"></span>
+                    </div>
+                    <div class="tag-row">
+                        <span class="tag">Python 3.8+</span><span class="tag">LangChain 0.3.16</span><span
+                            class="tag">Qwen2.5:7b</span>
+                        <span class="tag">Ollama</span><span class="tag">FAISS 1.9.0</span><span class="tag">MPNet
+                            (768-dim)</span>
+                        <span class="tag">HuggingFace Transformers</span><span class="tag">Streamlit 1.41.1</span>
+                        <span class="tag">PDFPlumber</span><span class="tag">PyTorch</span><span
+                            class="tag">NumPy</span>
+                    </div>
+                </div>
+
+                <div class="art-section fade" id="links">
+                    <div class="sec-header"><span class="sec-label">Links</span><span class="sec-line"></span></div>
+                    <div class="cta-row">
+                        <a href="https://github.com/nhien8865" target="_blank" class="cta-primary">GitHub →</a>
+                        <a href="index.html" class="cta-ghost">← Back to portfolio</a>
+                    </div>
+                </div>
+
+            </article>
+
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#problem">The Problem</a></li>
+                    <li><a href="#pipeline">How It Works</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#highlights">Key Highlights</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                    <li><a href="#comparison">Comparison</a></li>
+                    <li><a href="#stack">Tech Stack</a></li>
+                    <li><a href="#links">Links</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 
-    <!-- BODY -->
-    <div class="body-wrap">
-
-        <article>
-
-            <div class="art-section fade" id="overview">
-                <div class="art-h2">Overview</div>
-                <p class="art-lead">The volume of information locked inside PDF documents is enormous — research papers, legal contracts, technical manuals, lecture notes. Finding a specific answer in a 100-page document is slow and frustrating. SmartDoc AI solves this.</p>
-                <p class="art-p">Upload any PDF and ask questions about it in plain language. The system reads, understands, and retrieves exactly the relevant passages — then uses a local large language model to synthesise a precise, grounded answer. No cloud. No subscription. No data leaving your machine.</p>
-                <p class="art-p">It was built as the final project for the Open Source Software Development course at Saigon University (Spring 2026), with a focus on building production-quality AI pipelines from entirely open-source components.</p>
-            </div>
-
-            <div class="art-section fade" id="problem">
-                <div class="art-h2">The Problem</div>
-                <p class="art-p">Traditional keyword search fails to understand the intent behind a question. Cloud-based AI tools like ChatGPT require uploading sensitive documents to external servers — a privacy risk for legal, medical, or confidential content. And they cost money at scale.</p>
-                <p class="art-p">The goal was to build a system that is accurate, private by default, free to run, and capable of understanding both English and Vietnamese — the two primary languages used in Vietnamese academic and professional settings.</p>
-            </div>
-
-            <div class="art-section fade" id="pipeline">
-                <div class="art-h2">How It Works — 5-Step Pipeline</div>
-                <p class="art-p" style="margin-bottom:24px">SmartDoc AI is built around a classic RAG (Retrieval-Augmented Generation) architecture, with each component carefully chosen for multilingual quality and local performance.</p>
-                <div class="pipeline">
-                    <div class="p-step">
-                        <div class="p-step-left"><div class="p-num">1</div><div class="p-line"></div></div>
-                        <div>
-                            <div class="p-title">Upload &amp; Extract</div>
-                            <p class="p-body">The user uploads a PDF via the Streamlit interface. <strong>PDFPlumber</strong> parses the file, accurately extracting text while preserving layout — including tables and multi-column formats that simpler parsers often mangle.</p>
-                        </div>
-                    </div>
-                    <div class="p-step">
-                        <div class="p-step-left"><div class="p-num">2</div><div class="p-line"></div></div>
-                        <div>
-                            <div class="p-title">Chunk &amp; Embed</div>
-                            <p class="p-body">The extracted text is split into overlapping chunks of 1,000 characters with 100-character overlap using <strong>RecursiveCharacterTextSplitter</strong> — the overlap ensures no context is lost at chunk boundaries. Each chunk is then converted into a 768-dimensional vector by <strong>paraphrase-multilingual-mpnet-base-v2</strong>, a sentence-transformer model that natively supports 50+ languages including Vietnamese.</p>
-                        </div>
-                    </div>
-                    <div class="p-step">
-                        <div class="p-step-left"><div class="p-num">3</div><div class="p-line"></div></div>
-                        <div>
-                            <div class="p-title">Index with FAISS</div>
-                            <p class="p-body">All vectors are indexed locally using <strong>FAISS</strong> (Facebook AI Similarity Search). FAISS enables millisecond-speed similarity search across millions of vectors without any external database or network dependency. The entire index lives in memory — fast, private, ephemeral.</p>
-                        </div>
-                    </div>
-                    <div class="p-step">
-                        <div class="p-step-left"><div class="p-num">4</div><div class="p-line"></div></div>
-                        <div>
-                            <div class="p-title">Semantic Retrieval</div>
-                            <p class="p-body">When the user submits a question, it is embedded using the same MPNet model. FAISS then finds the top-3 chunks with the highest cosine similarity to the question vector. This is meaning-level matching — not keyword matching — so the system understands paraphrases and indirect questions correctly.</p>
-                        </div>
-                    </div>
-                    <div class="p-step">
-                        <div class="p-step-left"><div class="p-num">5</div><div class="p-line"></div></div>
-                        <div>
-                            <div class="p-title">Generate &amp; Respond</div>
-                            <p class="p-body">The retrieved chunks and the question are assembled into a structured prompt. A language detection step checks whether the question is in Vietnamese or English and selects the appropriate prompt template. The prompt is then passed to <strong>Qwen2.5:7b</strong> — running entirely locally via <strong>Ollama</strong> — which generates a concise, 3–4 sentence answer grounded in the retrieved context. If the document doesn't contain the answer, the model is instructed to say so rather than hallucinate.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="art-section fade" id="architecture">
-                <div class="art-h2">System Architecture</div>
-                <p class="art-p" style="margin-bottom:16px">Four layers, each with a single responsibility:</p>
-                <div class="code-block">Presentation  →  Streamlit (file upload, Q&A interface)
-Application   →  LangChain (pipeline orchestration, prompt engineering)
-Data          →  FAISS vector store + MPNet embeddings (768-dim)
-Model         →  Qwen2.5:7b via Ollama (local LLM inference)</div>
-                <p class="art-p">The separation of concerns means any layer can be swapped independently — for example, replacing Qwen2.5 with Llama 3 or Mistral requires changing a single line of configuration.</p>
-            </div>
-
-            <div class="art-section fade" id="highlights">
-                <div class="art-h2">Key Highlights</div>
-                <div class="hi-grid">
-                    <div class="hi-cell"><div class="hi-head">100% Local &amp; Private</div><div class="hi-body">Every component — embedding, vector search, LLM inference — runs on the user's own machine. Documents never leave the system. Ideal for sensitive content.</div></div>
-                    <div class="hi-cell"><div class="hi-head">Zero API Cost</div><div class="hi-body">No OpenAI key, no monthly bill, no per-query charge. The entire stack is open-source: Qwen2.5:7b, sentence-transformers, FAISS, LangChain, Streamlit.</div></div>
-                    <div class="hi-cell"><div class="hi-head">50+ Languages</div><div class="hi-body">The MPNet embedding model handles Vietnamese, English, Chinese, French, German, and 50+ other languages. The system auto-detects the question language and responds accordingly.</div></div>
-                    <div class="hi-cell"><div class="hi-head">Honest by Design</div><div class="hi-body">Tested against out-of-context questions (e.g. asking a recipe PDF about calculus). The system is prompted to say "I don't know" rather than fabricate — a critical quality for real-world trust.</div></div>
-                </div>
-            </div>
-
-            <div class="art-section fade" id="performance">
-                <div class="art-h2">Performance</div>
-                <div class="metrics">
-                    <div class="metric"><span class="metric-val">2–5s</span><span class="metric-lbl">PDF load</span></div>
-                    <div class="metric"><span class="metric-val">5–10s</span><span class="metric-lbl">Embedding (100 chunks)</span></div>
-                    <div class="metric"><span class="metric-val">1–3s</span><span class="metric-lbl">Query processing</span></div>
-                    <div class="metric"><span class="metric-val">3–8s</span><span class="metric-lbl">Answer generation</span></div>
-                    <div class="metric"><span class="metric-val">85–90%</span><span class="metric-lbl">Retrieval accuracy</span></div>
-                    <div class="metric"><span class="metric-val">80–85%</span><span class="metric-lbl">Answer relevance</span></div>
-                </div>
-                <p class="art-p" style="margin-top:16px">Benchmarked across three test case types: simple factual questions, complex multi-step reasoning, and out-of-context queries. All three passed.</p>
-            </div>
-
-            <div class="art-section fade" id="comparison">
-                <div class="art-h2">Comparison</div>
-                <table class="cmp-table">
-                    <thead>
-                        <tr><th>Feature</th><th>SmartDoc AI</th><th>ChatGPT</th><th>Generic Local LLM</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Privacy</td><td class="hi">100% local</td><td class="lo">Cloud-based</td><td class="hi">Local</td></tr>
-                        <tr><td>Cost</td><td class="hi">Free</td><td class="lo">Paid / limited</td><td class="hi">Free</td></tr>
-                        <tr><td>Document Q&amp;A</td><td class="hi">✓ RAG-powered</td><td class="hi">✓ Upload feature</td><td class="lo">✗ No retrieval</td></tr>
-                        <tr><td>Vietnamese support</td><td class="hi">Excellent</td><td class="hi">Good</td><td class="lo">Variable</td></tr>
-                        <tr><td>Offline use</td><td class="hi">✓ After setup</td><td class="lo">✗ Requires internet</td><td class="hi">✓</td></tr>
-                        <tr><td>Customisable</td><td class="hi">Fully</td><td class="lo">No</td><td>Partially</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="art-section fade" id="stack">
-                <div class="art-h2">Tech Stack</div>
-                <div class="tag-row">
-                    <span class="tag">Python 3.8+</span>
-                    <span class="tag">LangChain 0.3.16</span>
-                    <span class="tag">Qwen2.5:7b</span>
-                    <span class="tag">Ollama</span>
-                    <span class="tag">FAISS 1.9.0</span>
-                    <span class="tag">MPNet (768-dim)</span>
-                    <span class="tag">HuggingFace Transformers</span>
-                    <span class="tag">Streamlit 1.41.1</span>
-                    <span class="tag">PDFPlumber</span>
-                    <span class="tag">PyTorch</span>
-                    <span class="tag">NumPy</span>
-                </div>
-            </div>
-
-            <div class="art-section fade" id="links">
-                <div class="art-h2">Links</div>
-                <div class="cta-row">
-                    <a href="https://github.com/nhien8865" target="_blank" class="cta-primary">GitHub →</a>
-                    <a href="index.html" class="cta-ghost">← Back to portfolio</a>
-                </div>
-            </div>
-
-        </article>
-
-        <!-- TOC: sticky inside shell (not fixed to viewport) -->
-        <nav class="toc">
-            <div class="toc-title">On this page</div>
-            <ul class="toc-list">
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#problem">The Problem</a></li>
-                <li><a href="#pipeline">How It Works</a></li>
-                <li><a href="#architecture">Architecture</a></li>
-                <li><a href="#highlights">Key Highlights</a></li>
-                <li><a href="#performance">Performance</a></li>
-                <li><a href="#comparison">Comparison</a></li>
-                <li><a href="#stack">Tech Stack</a></li>
-                <li><a href="#links">Links</a></li>
-            </ul>
-        </nav>
-
-    </div>
-</div>
-
-<script>
-(function() {
-    var fades = document.querySelectorAll('.fade');
-    var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-            if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-        });
-    }, { threshold: 0.05 });
-    fades.forEach(function(el) { obs.observe(el); });
-
-    var artSections = document.querySelectorAll('.art-section[id]');
-    var tocLinks = document.querySelectorAll('.toc-list a');
-    window.addEventListener('scroll', function() {
-        var y = window.scrollY + 100;
-        var current = '';
-        artSections.forEach(function(s) { if (y >= s.offsetTop) current = s.id; });
-        tocLinks.forEach(function(a) {
-            a.classList.toggle('toc-active', a.getAttribute('href') === '#' + current);
-        });
-    }, { passive: true });
-}());
-</script>
-
+    <script>
+        (function () {
+            var fades = document.querySelectorAll('.fade');
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+            }, { threshold: 0.05 });
+            fades.forEach(function (el) { obs.observe(el); });
+            var artSections = document.querySelectorAll('.art-section[id]');
+            var tocLinks = document.querySelectorAll('.toc-list a');
+            window.addEventListener('scroll', function () {
+                var y = window.scrollY + 100;
+                var current = '';
+                artSections.forEach(function (s) { if (y >= s.offsetTop) current = s.id; });
+                tocLinks.forEach(function (a) { a.classList.toggle('toc-active', a.getAttribute('href') === '#' + current); });
+            }, { passive: true });
+        }());
+    </script>
 </body>
+
 </html>
